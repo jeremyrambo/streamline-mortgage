@@ -5,8 +5,9 @@ var http        = require( "http" ),
     config      = require( "./config" ),
     utils       = require( "./utils/utils" ),
     api         = require( "./routes/api" ),
+    credit      = require( "./routes/services/credit" ),
     home        = require( "./routes/home" ),
-    graph        = require( "./routes/graph" ),
+    graph       = require( "./routes/graph" ),
     faye        = require( "faye" ),
     subscribers = require( "./routes/api/pub-sub/subscribers" );
 
@@ -34,6 +35,7 @@ app.use( morgan("combined") );
  */
 console.log( "mounting API routes" );
 app.use( "/api", api );
+app.use( config.services.credit.path, credit );
 
 /**
  * Mount default route.

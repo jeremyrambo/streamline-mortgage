@@ -19,77 +19,47 @@ module.exports = (function() {
 
     config.minified = process.env.STREAMLINE_MORTGAGE_MINIFIED === "minified";
 
-    // Configure the production environment.
-    if ( config.env === "production" ) {
-        config.production = true;
-        config.databaseURL = process.env.DATABASE_URL;
+    // Local configuration mode
+    config.production = false;
+    // config.minified = true;
+    config.databaseURL = "postgres://sm:password@localhost:8083/sm";
 
-        config.host = {
-            url : "http://streamline-mortgage.sh",
-            port : process.env.PORT,
-            toString : function() {
-                return toURL( this.url );
-            }
-        };
+    config.host = {
+        url : "http://localhost",
+        port : fs.existsSync("/usr/bin/heroku") ? 5000 : 8080,
+        toString : function() {
+            return toURL( this.url, this.port );
+        }
+    };
 
+    config.notifier = {
+        url : config.host.url,
+        port : config.host.port,
+        path : "/ps",
+        toString : function() {
+            return toURL( this.url, this.port ) + this.path;
+        }
+    };
 
-        config.notifier = {
-            url : "http://streamline-mortgage.sh",
-            path : "/ps",
-            toString : function() {
-                return toURL( this.url ) + this.path;
-            }
-        };
-    }
+    config.services = {
+      credit : {
+        url : config.host.url,
+        port : config.host.port,
+        path : "/credit",
+        toString : function() {
+            return toURL( this.url, this.port ) + this.path;
+        }
+      },
 
-    // Configure the test environment.
-    else if ( config.env === "test" ) {
-        config.production = false;
-        config.databaseURL = process.env.DATABASE_URL;
-
-        config.host = {
-            url : "http://streamline-mortgage-test.herokuapp.com",
-            port : process.env.PORT,
-            toString : function() {
-                return toURL( this.url );
-            }
-        };
-
-
-        config.notifier = {
-            url : "http://streamline-mortgage-test.herokuapp.com",
-            path : "/ps",
-            toString : function() {
-                return toURL( this.url ) + this.path;
-            }
-        };
-    }
-
-    // Configure local development environment.
-    else {
-        // Local configuration mode
-        config.production = false;
-        // config.minified = true;
-        config.databaseURL = "postgres://sm:password@localhost:8083/sm";
-
-        config.host = {
-            url : "http://localhost",
-            port : fs.existsSync("/usr/bin/heroku") ? 5000 : 8080,
-            toString : function() {
-                return toURL( this.url, this.port );
-            }
-        };
-
-        config.notifier = {
-            url : config.host.url,
-            port : config.host.port,
-            path : "/ps",
-            toString : function() {
-                return toURL( this.url, this.port ) + this.path;
-            }
-        };
-    }
-
+      zillow : {
+        url : config.host.url,
+        port : config.host.port,
+        path : "/zillow",
+        toString : function() {
+            return toURL( this.url, this.port ) + this.path;
+        }
+      },
+    };
 
     // Configure the pub sub components.
     config.pubsub = {

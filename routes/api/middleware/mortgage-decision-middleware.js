@@ -20,6 +20,10 @@ module.exports = function( request, response, next ) {
     if (chunk)
       chunks.push(chunk);
 
+    if (chunks.length === 0 ){
+      _end.apply( response, arguments );
+    }
+    console.log( 'chunks', chunks);
     var body = Buffer.concat(chunks).toString('utf8');
 
     publisher.publish( "api-event", {
