@@ -1,7 +1,5 @@
 var faye     = require( "faye"),
-    config   = require( "../../../config" ),
-    twitter  = require( "./twitter-subscriber.js" ),
-    cache    = require( "./cache-subscriber.js" );
+    config   = require( "../../../config" );
 
 
 exports.mount = function() {
@@ -11,6 +9,5 @@ exports.mount = function() {
     var fayeClient = new faye.Client( config.notifier.toString() );
     fayeClient.connect();
 
-    twitter.subscribe( fayeClient );
-    cache.subscribe( fayeClient );
+    // cache.subscribe( fayeClient );
 };
