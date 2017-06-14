@@ -1,0 +1,11 @@
+{
+    "name" : "vent-load-tester",
+    "version" : "0.1.0",
+    "description" : "load test against vent-test.herokuapp.com",
+    "main" : "load-test.js",
+
+    "dependencies" :  {
+        "request" : "~2.67.0"
+    }
+}
+

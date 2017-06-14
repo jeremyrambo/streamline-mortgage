@@ -1,0 +1,9 @@
+{
+    "name": "vent-web-versioner",
+    "version": "0.1.0",
+    "description": "utility used to 'version' javascript references in HTML files by adding the current timestamp. see also: version-request-modifier-middleware.js",
+    "main": "version.js",
+    "dependencies": {
+        "mv": "2.1.1"
+    }
+}

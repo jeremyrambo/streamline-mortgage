@@ -1,0 +1,32 @@
+{
+    "name": "streamline-mortgage",
+    "version": "1.0.0",
+    "description": "",
+    "dependencies": {
+        "pg": "~6.2.4",
+        "moment": "~2.18.1",
+        "request": "~2.81.0",
+        "express": "4.15.3",
+        "express-cache-control": "~1.0.2",
+        "compression": "~1.6.2",
+        "morgan": "~1.8.2",
+        "body-parser": "~1.17.2",
+        "sprintf-js": "~1.1.1",
+        "twitter": "~1.7.1",
+        "faye": "~1.2.4"
+    },
+    "scripts": {
+        "preinstall": "support/scripts/preinstall.sh",
+        "clean": "support/scripts/clean.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "engines": {},
+    "keywords": [
+        "node",
+        "heroku",
+        "express"
+    ]
+}
