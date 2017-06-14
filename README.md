@@ -44,9 +44,52 @@ __Request__
   },
 
   loan : {
-    requestedAmount:'',
+    purchasePrice:'',
     downPayment:'',
     term:''
+  }
+}
+```
+
+__Credit Score Service Responses__
+
+```javascript
+[
+  {
+    firstName:'',
+    lastName:'',
+    ssn:'',
+    address: {
+      street:'',
+      city:'',
+      state:'',
+      zip:''
+    }
+    score:''
+  }
+]
+```
+
+__Zillow Home Information Service Responses__
+
+```javascript
+{
+  address: {
+    street:'',
+    city:'',
+    state:'',
+    zip:''
+  },
+  estimatedValue: '',
+  parcelNumber:'',
+  features: {
+    beds:'',
+    yearBuilt:'',
+    baths:'',
+    sqft:'',
+    lotSize:'',
+    garage:'',
+    roof:''
   }
 }
 ```
