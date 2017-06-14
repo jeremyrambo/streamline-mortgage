@@ -2,8 +2,8 @@
 
 - [ ] Add the ability to store mortgage requests as JSON
 - [ ] Add the ability to process mortgage requests for underwriting
-- [ ] Add the ability to fabricate credit score data
-- [ ] Add the ability to fabricate housing value data
+- [x] Add the ability to fabricate credit score data
+- [x] Add the ability to fabricate housing value data
 - [ ] Add the ability to publish underwriting decisions
 - [ ] Add the ability to retrieve mortgage requests by ID
 - [ ] Add the ability to generate "loads" of mortgage requests with fabricated data
