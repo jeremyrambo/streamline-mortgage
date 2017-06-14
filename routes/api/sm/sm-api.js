@@ -14,7 +14,10 @@ console.log( "mounting vent routes" );
 
 app.get( "/live", function(request, response, next) {
   smdb.q.connection_live( function(err, result) {
+    setTimeout( function() {
+
       return responseHandler.get( response, err, result );
+    }, 10000);
   });
 });
 
