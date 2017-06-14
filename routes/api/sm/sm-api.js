@@ -17,6 +17,12 @@ app.get( "/live", function(request, response, next) {
       return responseHandler.get( response, err, result );
   });
 });
+
+app.get( "/mortgages", function(request, response, next) {
+  smdb.q.mortgages( function(err, result) {
+      return responseHandler.get( response, err, result );
+  });
+});
 /*
  * When query contains "mode=top", this will return the top 15 sessions.
  * When query contains "mode=riddle", this will return a random riddle (optional parameter of "avoid=#" will ensure a certain riddle is avoided).
