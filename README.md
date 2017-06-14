@@ -93,3 +93,45 @@ __Zillow Home Information Service Responses__
   }
 }
 ```
+
+
+__Streamline Mortgage Response__
+```javascript
+{
+  applicants : [
+    {
+      firstName:'',
+      lastName:'',
+      birthDate:'',
+      ssn:'',
+      address: {
+        street:'',
+        city:'',
+        state:'',
+        zip:''
+      }
+    }
+  ],
+
+  property: {
+    address: {
+      street:'',
+      city:'',
+      state:'',
+      zip:''
+    }
+  },
+
+  loan : {
+    purchasePrice:'',
+    downPayment:'',
+    term:''
+  },
+
+  response: {
+    status:'',
+    rate:'',
+    explanation:''
+  }
+}
+```
