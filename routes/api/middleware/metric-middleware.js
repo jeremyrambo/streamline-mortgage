@@ -5,7 +5,6 @@ var responseHandler = utils.responseHandler;
 
 module.exports.api = function( request, response, next ) {
 
-
 	var source_ip  = utils.http.source_ip( request );
 	var userAgent = utils.http.userAgent( request );
 

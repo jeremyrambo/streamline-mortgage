@@ -11,3 +11,42 @@
 - [ ] Create a user interface to monitor the portfolio risk
 - [ ] Add the ability to dynamically change underwriting decisions
 - [ ] Add the ability to learn the changes in the risk portfolio and adjust rules at runtime - _machine learning_.
+
+
+## Data Sample
+
+__Request__
+
+```javascript
+{
+  applicants : [
+    {
+      firstName:'',
+      lastName:'',
+      birthDate:'',
+      ssn:'',
+      address: {
+        street:'',
+        city:'',
+        state:'',
+        zip:''
+      }
+    }
+  ],
+
+  property: {
+    address: {
+      street:'',
+      city:'',
+      state:'',
+      zip:''
+    }
+  },
+
+  loan : {
+    requestedAmount:'',
+    downPayment:'',
+    term:''
+  }
+}
+```
