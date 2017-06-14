@@ -1,0 +1,105 @@
+.report-a-bug, .download-wadl {
+	float: right;
+    padding: 0 5px;
+}
+
+.report-a-bug img, .download-wadl img{
+	height: 30px;
+	padding-top: 10px;
+}
+/*
+ * API Logo
+ */
+div.logo-container.container {
+    text-align: center;
+    padding-top: 30px;
+    z-index: -1;
+}
+div.logo-container img.logo {
+    height: 60px;
+}
+
+/*
+ * Swagger overrides for bootstrap compatibility
+ */
+.swagger-section .swagger-ui-wrap {
+	max-width: 95%;
+}
+.swagger-section .swagger-ui-wrap a,
+.swagger-section .swagger-ui-wrap .markdown h3{
+	color: #337ab7;
+}
+
+#swagger-ui-container {
+	margin-top: 50px;
+}
+
+/*
+ * Header
+ */
+.navbar-header {
+	width: 100%;
+}
+.navbar-default {
+    background-color: #FAFAFA;
+    border-color: #E7E7E7;
+}
+
+.navbar-brand img {
+    width: 134px;
+    float: left;
+    margin-right: 15px;
+}
+
+.navbar-default .navbar-brand {
+    color: #cc0717;
+    padding: 15px 0 15px 10px;
+}
+
+.navbar-default .navbar-brand .logo {
+    display: block;
+    width: 34px;
+    height: 20px;
+    float: left;
+    background: url('../images/SF_logo_ovals.svg') no-repeat;
+    margin-right: 7px;
+}
+
+.navbar-default .navbar-brand a,
+.navbar-default .navbar-brand a:hover,
+.navbar-default .navbar-brand a:focus {
+    color: #cc0717;
+    text-decoration: none;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+	outline: none;
+}
+
+hr.navbar-bottom-strip {
+    width: 100%;
+    margin: 0 auto 0 auto;
+    height: 10px;
+    background-color: #cc0717;
+    border: 0 none;
+}
+
+.toggleOperation > .markdown > p {
+	margin: 0 0 0 0;
+}
+
+.content {
+	margin-top: 75px;
+}
+
+
+@media only screen and (min-width: 767px) {
+    .navbar-default .navbar-brand .logo {
+        width: 136px;
+        height: 25px;
+        background: url('../images/SF_logo_full.svg') no-repeat;
+        margin-right: 10px;
+    }
+}
