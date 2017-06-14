@@ -11,7 +11,7 @@ var app = module.exports = express();
 
 var responseHandler = utils.responseHandler;
 
-console.log( "mounting credit service" );
+console.log( "mounting zillow service" );
 
 app.use( compression() );
 app.use( bodyParser.json() );
@@ -20,10 +20,10 @@ app.use( bodyParser.urlencoded({ extended: true }) );
 /*
  * Adds the configured domain (see config.domainName) if it doesn't already exist in the database
  *
- * Usage: curl -v -X POST -H "Content-Type: application/json" -d '{"firstName":"sue","lastName":"doe","ssn":"123456789","address":{ "street":"1 S. Main","city":"Bloomington","state":"IL","zip":"61704"}}' http://localhost:8080/credit
+ * Usage: curl -v -X POST -H "Content-Type: application/json" -d '{"street":"1 S. Main","city":"Bloomington","state":"IL","zip":"61704"}' http://localhost:8080/zillow
  */
 app.post( "/", function( request, response ){
-console.log( 'request', request.params , request.body);
+console.log( 'request', request.body );
   smdb.q.connection_live( function(err, result) {
     return responseHandler.get( response, err, result );
   });
