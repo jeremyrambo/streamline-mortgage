@@ -6,6 +6,7 @@ var http        = require( "http" ),
     utils       = require( "./utils/utils" ),
     api         = require( "./routes/api" ),
     home        = require( "./routes/home" ),
+    graph        = require( "./routes/graph" ),
     faye        = require( "faye" ),
     subscribers = require( "./routes/api/pub-sub/subscribers" );
 
@@ -40,6 +41,8 @@ app.use( "/api", api );
 console.log( "mounting default route" );
 
 app.get( "/", home );
+
+app.get( "/graph", graph );
 
 /**
  * Redirect all other requests to the index (HTML5 history).
