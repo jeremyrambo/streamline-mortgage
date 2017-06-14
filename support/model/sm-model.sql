@@ -15,3 +15,12 @@ CREATE TABLE IF NOT EXISTS sm.mortgage (
 );
 
 CREATE UNIQUE INDEX mortgage_id_unique_idx ON sm.mortgage (id);
+
+CREATE SCHEMA IF NOT EXISTS sm_metric;
+
+
+CREATE TABLE IF NOT EXISTS sm_metric.api_log (
+  request_path VARCHAR(100) NOT NULL,
+  source_ip VARCHAR(20) NOT NULL,
+  created_on TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  agent VARCHAR(300));

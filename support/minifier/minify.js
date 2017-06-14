@@ -53,12 +53,12 @@ var compressibles = {
         "app.min.css" )
 };
 
-compressJS( compressibles.scripts.directives );
-compressJS( compressibles.scripts.services );
-compressJS( compressibles.scripts.app );
-
-compress( compressibles.styles, "../../public/min/css", "sqwish" );
-
+// compressJS( compressibles.scripts.directives );
+// compressJS( compressibles.scripts.services );
+// compressJS( compressibles.scripts.app );
+//
+// compress( compressibles.styles, "../../public/min/css", "sqwish" );
+//
 /**
  * Adds a simple constructor style function to store compressible information.
  *
