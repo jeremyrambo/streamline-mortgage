@@ -3,7 +3,6 @@ var express        = require( "express" ),
 	  bodyParser     = require( "body-parser" ),
     utils          = require( "../../utils/utils" ),
     sm             = require( "./sm/sm-api" ),
-    token          = require( "./sm/token-api" ),
     api_middleware = require( "./middleware/metric-middleware" ).api;
 
 var app = module.exports = express();
@@ -17,4 +16,3 @@ app.use( bodyParser.urlencoded({ extended: true }) );
 app.use( api_middleware );
 
 app.use( "/", sm );
-app.use( "/token", token );
