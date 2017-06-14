@@ -1,5 +1,6 @@
-var faye     = require( "faye"),
-    config   = require( "../../../config" );
+var faye                        = require( "faye"),
+    mortgageDecisionSubscriber  = require( "./mortgage-decision-subscriber" ),
+    config                      = require( "../../../config" );
 
 
 exports.mount = function() {
@@ -9,5 +10,5 @@ exports.mount = function() {
     var fayeClient = new faye.Client( config.notifier.toString() );
     fayeClient.connect();
 
-    // cache.subscribe( fayeClient );
+    mortgageDecisionSubscriber.subscribe( fayeClient );
 };
