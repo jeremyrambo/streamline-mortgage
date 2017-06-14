@@ -20,7 +20,7 @@ app.get( "/live", function(request, response, next) {
 
 app.get( "/mortgages", function(request, response, next) {
   smdb.q.mortgages( function(err, result) {
-      return responseHandler.get( response, err, result );
+      return responseHandler.get( response, err, { response: result[0].count } );
   });
 });
 /*

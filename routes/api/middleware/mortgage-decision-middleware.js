@@ -22,9 +22,11 @@ module.exports = function( request, response, next ) {
 
     var body = Buffer.concat(chunks).toString('utf8');
 
-    // console.log( "body:", JSON.parse(body));
-
-    publisher.publish( "mortgage-decision", JSON.parse(body) );
+    publisher.publish( "api-event", {
+      "path" : request.path,
+      "method" : request.method,
+      "response" : JSON.parse(body)
+    });
 
     _end.apply(response, arguments);
   };
