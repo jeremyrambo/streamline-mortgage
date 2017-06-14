@@ -3,17 +3,19 @@
     "version": "1.0.0",
     "description": "",
     "dependencies": {
-        "pg": "~6.2.4",
-        "moment": "~2.18.1",
-        "request": "~2.81.0",
+        "body-parser": "~1.17.2",
+        "chance": "^1.0.9",
+        "compression": "~1.6.2",
         "express": "4.15.3",
         "express-cache-control": "~1.0.2",
-        "compression": "~1.6.2",
+        "faker": "^4.1.0",
+        "faye": "~1.2.4",
+        "moment": "~2.18.1",
         "morgan": "~1.8.2",
-        "body-parser": "~1.17.2",
+        "pg": "~6.2.4",
+        "request": "~2.81.0",
         "sprintf-js": "~1.1.1",
-        "twitter": "~1.7.1",
-        "faye": "~1.2.4"
+        "twitter": "~1.7.1"
     },
     "scripts": {
         "preinstall": "support/scripts/preinstall.sh",
