@@ -59,10 +59,10 @@ module.exports = {
             profit += g.annualProfit;
           }
 
-          console.log( 'Grade ', grade ) ;
-          console.log( '\t total: ', gradeSum );
-          console.log( '\t avg. rate:', rateSum / compute.grades[grade].length );
-          console.log( '\t profit:', profit );
+          // console.log( 'Grade ', grade ) ;
+          // console.log( '\t total: ', gradeSum );
+          // console.log( '\t avg. rate:', rateSum / compute.grades[grade].length );
+          // console.log( '\t profit:', profit );
           var data = {
             total : gradeSum,
             avgrate : (rateSum / compute.grades[grade].length ),
@@ -84,7 +84,6 @@ function logStats( grade, data ) {
                 "VALUES ($1, $2)",
         values:[ grade, data ]
     };
-    console.log('grade_to_stats', grade, grade_to_stats);
     connection.query( grade_to_stats, function(err, result) {
       if( err ) {
         return console.log( err );

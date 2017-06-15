@@ -7,6 +7,7 @@ var express     = require( "express" ),
     publisher   = require( "../api/pub-sub/publisher" ),
     grade       = require( "./rules/grades" ),
     rate        = require( "./rules/rating" ),
+    dbconnector = require( '../api/db/dbconnector' ),
 		dataGen     = require( "../../utils/generateData");
 
 var app = module.exports = express();
@@ -44,4 +45,41 @@ app.post( "/apply/mortgage", function( request, response ){
 	    return responseHandler.get( response, err, application );
 		});
   })
+});
+
+app.post( "/rules/rating/grade_multiplier", function( request, response ){
+	dbconnector.connect( function(connection) {
+		var update_grade_multiplier = {
+				name  : "update_grade_multiplier",
+				text  : "INSERT INTO sm_rules.grade_multiplier (grade, multiplier ) " +
+								"VALUES ($1, $2)",
+				values:[ request.body.grade, request.body.multiplier ]
+		};
+		connection.query( update_grade_multiplier, function(err, result) {
+			if( err ) {
+				return console.log( err );
+			}
+			return responseHandler.post( request, response, err, 1 );
+		});
+	});
+});
+
+app.get( "/rules/rating/grade_multiplier/:grade", function( request, response ){
+	console.log( 'made it here', request.params)
+	dbconnector.connect( function(connection) {
+		var update_grade_multiplier = {
+				name  : "update_grade_multiplier",
+				text  : "SELECT * FROM sm_rules.grade_multiplier " +
+								" WHERE grade=$1 " +
+								" ORDER BY created_on DESC",
+
+				values:[ request.params.grade ]
+		};
+		connection.query( update_grade_multiplier, function(err, result) {
+			if( err ) {
+				return console.log( err );
+			}
+			return responseHandler.get( response, err, result.rows );
+		});
+	});
 });
