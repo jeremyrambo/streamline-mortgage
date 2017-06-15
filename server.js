@@ -10,6 +10,7 @@ var http            = require( "http" ),
     decisionEngine  = require( "./routes/services/decision-engine" ),
     home            = require( "./routes/home" ),
     graph           = require( "./routes/graph" ),
+    template        = require( "./routes/template" ),
     faye            = require( "faye" ),
     subscribers     = require( "./routes/api/pub-sub/subscribers" );
 
@@ -49,6 +50,8 @@ console.log( "mounting default route" );
 app.get( "/", home );
 
 app.get( "/graph", graph );
+
+app.get( "/template", template );
 
 /**
  * Redirect all other requests to the index (HTML5 history).
