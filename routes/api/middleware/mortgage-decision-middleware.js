@@ -8,7 +8,7 @@ module.exports = function( request, response, next ) {
   var _write = response.write,
       _end = response.end;
 
-  let chunks = [];
+  var chunks = [];
 
   response.write = function (chunk) {
     chunks.push(chunk);

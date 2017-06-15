@@ -12,6 +12,7 @@ function generateApplicant() {
   applicant.birthDate = faker.date.between('1917-01-01', '1999-01-01');
   applicant.ssn = chance.ssn();
   applicant.address = generateAddress();
+  applicant.income = chance.integer({min: 0, max: 500000});
   return applicant;
 }
 
@@ -77,6 +78,7 @@ function generateZillowResponse(address) {
   response.features = features;
   return response;
 }
+
 
 module.exports = {
   generate : {
