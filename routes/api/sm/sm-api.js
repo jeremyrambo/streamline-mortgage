@@ -55,9 +55,9 @@ app.post( "/apply/mortgage", function( req, res ){
    */
   request.post( creditOptions, function(err, svcResponse, body) {
     console.log( body );
-    let creditApplicant = JSON.parse( body );
+    var creditApplicant = JSON.parse( body );
 
-    for( let key in creditApplicant ){
+    for( var key in creditApplicant ){
       if( application.applicants[0][key] === undefined ) {
         application.applicants[0][key] = creditApplicant[key];
       }
@@ -69,9 +69,9 @@ app.post( "/apply/mortgage", function( req, res ){
      */
     request.post( zillowOptions, function(err, svcResponse, body) {
       console.log( body );
-      let zillowProperty = JSON.parse( body );
+      var zillowProperty = JSON.parse( body );
 
-      for( let key in zillowProperty ){
+      for( var key in zillowProperty ){
         if( application.property[key] === undefined ) {
           application.property[key] = zillowProperty[key];
         }
@@ -85,7 +85,7 @@ app.post( "/apply/mortgage", function( req, res ){
        */
       request.post( decisionEngineOptions, function(err, svcResponse, body) {
         console.log( body );
-        let decision = JSON.parse( body );
+        var decision = JSON.parse( body );
 
         smdb.q.addMortgageDecision( decision, function( err, resourceId ) {
 
@@ -93,5 +93,11 @@ app.post( "/apply/mortgage", function( req, res ){
         });
       });
     });
+  });
+});
+
+app.get( "/apply/mortgage/:id", function( req, response ){
+  smdb.q.getMortgageDecision(req.params.id, function( err, result){
+    return responseHandler.get(response, err, result);
   });
 });

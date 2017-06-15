@@ -3,7 +3,7 @@ var Chance = require('chance');
 
 var chance = new Chance();
 var terms = [10, 15, 20, 30];
-var roofs = ["asphalt", "steel", "ceramic", "paper", "tin"];
+var roofs = ["Asphalt", "Steel", "Ceramic", "Paper", "Tin"];
 
 function generateApplicant() {
   var applicant = {};

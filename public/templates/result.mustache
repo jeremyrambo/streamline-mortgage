@@ -1,0 +1,67 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Mortgage Application Result</h1>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><i class="fa fa-fw fa-check"></i> Applicant Info</h4>
+        </div>
+        <div class="panel-body">
+          {{#applicants}}
+            <p>{{firstName}} {{lastName}}</p>
+            <p>{{address.street}}, {{address.city}}, {{address.state}}, {{address.zip}}</p>
+            <p>Credit Score - {{creditScore}}</p>
+          {{/applicants}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><i class="fa fa-fw fa-gift"></i> Property Info</h4>
+        </div>
+        <div class="panel-body">
+          {{#property}}
+            <p>{{address.street}}, {{address.city}}, {{address.state}}, {{address.zip}}</p>
+            <p>Estimated Value - ${{estimatedValue}}</p>
+            <p>Parcel #{{parcelNumber}}</p>
+            {{#features}}
+              <p>Features</p>
+              <ul>
+                <li>{{beds}} Bedrooms</li>
+                <li>{{baths}} Bathrooms</li>
+                <li>{{sqft}} sq ft.</li>
+                <li>Lot - {{lotSize}} sq ft.</li>
+                <li>{{garage}}-car Garage</li>
+                <li>{{roof}} Roof</li>
+                <li>Built in {{yearBuilt}}</li>
+              </ul>
+            {{/features}}
+          {{/property}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><i class="fa fa-fw fa-compass"></i> Loan Info</h4>
+        </div>
+        <div class="panel-body">
+          {{#loan}}
+            <p> Total Loan Amount - ${{total}}
+            <p>Term - {{term}} Years</p>
+            <p> Monthly Payment - ${{monthlyPayment}}</p>
+          {{/loan}}
+          {{#response}}
+            <p>Grade - {{grade}}</p>
+            <p>Rate - </p>
+          {{/response}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>
