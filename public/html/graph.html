@@ -23,9 +23,30 @@
       display: none;
     }
   </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/app.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="../scripts/pace.min.js"></script>
 </head>
 
 <body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <span class="navbar-brand">
+          <a href="#"><span class="logo"></span>SF Streamline Mortgage Admin</a>
+        </span>
+      </div>
+    </div>
+    <hr class="navbar-bottom-strip" />
+  </nav>
+  <div class="container content">
+    <div style="float: right">Changes</div>
+  </div>
+
   <script src="//d3js.org/d3.v3.min.js"></script>
   <script>
     // Mike Bostock "margin conventions"
@@ -35,8 +56,8 @@
         bottom: 30,
         left: 100
       },
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      width = 700 - margin.left - margin.right,
+      height = 300 - margin.top - margin.bottom;
     // D3 scales = just math
     // x is a function that transforms from "domain" (data) into "range" (usual pixels)
     // domain gets set after the data loads
@@ -55,16 +76,19 @@
       .scale(y)
       .orient("left")
       .ticks(10, "")
-      .tickFormat(function(d) { return "$" + d;});
+      .tickFormat(function(d) {
+        return "$" + d;
+      });
 
     // create an SVG element (appended to body)
     // set size
     // add a "g" element (think "group")
     // annoying d3 gotcha - the 'svg' variable here is a 'g' element
     // the final line sets the transform on <g>, not on <svg>
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select(".container.content").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("style", "float: left")
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -78,37 +102,36 @@
       .attr("transform", "rotate(-90)") // rotate the text!
       .attr("y", 6)
       .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Amount");
+      .style("text-anchor", "end");
 
     var json = [{
       "grade": "A",
-      "amount": 2000000
+      "profit": 2000000
     }, {
       "grade": "B",
-      "amount": 2000000
+      "profit": 2000000
     }, {
       "grade": "C",
-      "amount": 2000000
+      "profit": 2000000
     }, {
       "grade": "D",
-      "amount": 2000000
+      "profit": 2000000
     }, {
       "grade": "E",
-      "amount": 2000000
+      "profit": 2000000
     }, {
       "grade": "F",
-      "amount": 2000000
+      "profit": 2000000
     }, {
       "grade": "G",
-      "amount": 2000000
+      "profit": 2000000
     }];
 
     replay(json);
 
     function type(d) {
       // + coerces to a Number from a String (or anything)
-      d.amount = +d.amount;
+      d.profit = +d.profit;
       return d;
     }
 
@@ -125,13 +148,13 @@
     }
 
     function draw(data) {
-      // measure the domain (for x, unique grades) (for y [0,maxamount])
+      // measure the domain (for x, unique grades) (for y [0,maxprofit])
       // now the scales are finished and usable
       x.domain(data.map(function(d) {
         return d.grade;
       }));
       y.domain([0, d3.max(data, function(d) {
-        return d.amount;
+        return d.profit;
       })]);
 
       // another g element, this time to move the origin to the bottom of the svg element
@@ -168,41 +191,36 @@
         }) // (d) is one item from the data array, x is the scale object from above
         .attr("width", x.rangeBand()) // constant, so no callback function(d) here
         .attr("y", function(d) {
-          return y(d.amount);
+          return y(d.profit);
         })
         .attr("height", function(d) {
-          return height - y(d.amount);
+          return height - y(d.profit);
         }); // flip the height, because y's domain is bottom up, but SVG renders top down
 
     }
 
-    function updateData() {
-      draw([{
-        grade: "A",
-        amount: Math.floor(Math.random() * 1000000)
-      }, {
-        grade: "B",
-        amount: Math.floor(Math.random() * 1000000)
-      }, {
-        grade: "C",
-        amount: Math.floor(Math.random() * 1000000)
-      }, {
-        grade: "D",
-        amount: Math.floor(Math.random() * 1000000)
-      }, {
-        grade: "E",
-        amount: Math.floor(Math.random() * 1000000)
-      }, {
-        grade: "F",
-        amount: Math.floor(Math.random() * 1000000)
-      }, {
-        grade: "G",
-        amount: Math.floor(Math.random() * 1000000)
-      }]);
-    }
+    setInterval(function() {
+      $.get("/api/admin/profits", function(result) {
+        console.log(result);
+        var newData = [];
+        for (var i = 0; i < result.length; i++) {
+          newData[i] = {};
+          newData[i].grade = result[i].grade;
+          newData[i].profit = JSON.parse(result[i].data).profit;
+        }
+        newData.sort(function(a, b) {
+          if (a.grade < b.grade)
+            return -1;
+          if (a.grade > b.grade)
+            return 1;
+          return 0;
+        });
+        console.log(newData);
+        draw(newData);
+      });
+    }, 5000);
   </script>
 
-  <input type="button" value="Update" onclick="updateData()" />
 </body>
 
 </html>
