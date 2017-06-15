@@ -20,17 +20,20 @@ module.exports = function( request, response, next ) {
     if (chunk)
       chunks.push(chunk);
 
-    if (chunks.length === 0 ){
-      _end.apply( response, arguments );
-    }
-    console.log( 'chunks', chunks);
-    var body = Buffer.concat(chunks).toString('utf8');
+    try {
 
-    publisher.publish( "api-event", {
-      "path" : request.path,
-      "method" : request.method,
-      "response" : JSON.parse(body)
-    });
+      _end.apply( response, arguments );
+      var body = Buffer.concat(chunks).toString('utf8');
+
+      publisher.publish( "api-event", {
+        "path" : request.path,
+        "method" : request.method,
+        "response" : JSON.parse(body)
+      });
+    }catch(e){
+      console.log( "error processing response body [chunks]: ", chunks, e );
+    }
+
 
     _end.apply(response, arguments);
   };

@@ -34,9 +34,27 @@ app.get( "/mortgages", function(request, response, next) {
  */
 app.post( "/apply/mortgage", function( req, res ){
 
-  console.log( 'hello world');
-  request.post(config.services.credit.toString(), {}, function(err, svcResponse, body) {
+  console.log( 'hello world', req.body);
+  const application = JSON.parse( JSON.stringify( req.body ));
+  const creditOptions = {
+    url : config.services.credit.toString(),
+    form: application.applicants[0]
+  };
+  const zillowOptions = {
+    url : config.services.credit.toString(),
+    form: application.property
+  };
+  request.post( creditOptions, function(err, svcResponse, body) {
+
       console.log(body)
+      for( let key in body ){
+        console.log( key );
+        if( application.applicants[0][key] === undefined ) {
+          application.applicants[0][key] = body[key];
+        }
+      }
+
+      console.log( application );
       return responseHandler.post(request, res, err, '1')
     });
 });
