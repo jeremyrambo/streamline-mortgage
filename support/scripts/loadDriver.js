@@ -1,4 +1,6 @@
-var dataGen = require("../../utils/generateData");
+var dataGen   = require( "../../utils/generateData" ),
+    suspend   = require( "suspend" );
+    request   = require( "request" );
 
 function simulateLoad(count) {
   var requests = [];
@@ -9,4 +11,32 @@ function simulateLoad(count) {
     requests[i].loan = dataGen.generate.loan();
   }
   return requests;
+}
+
+console.log( 'Beginning load test...');
+
+var requestData = simulateLoad( 100 );
+
+const driverOptions = {
+  url : "http://localhost:8080/api/apply/mortgage",
+  form: null
+};
+
+
+for( var x=0; x < requestData.length; x++ ) {
+  /*
+   * Retrieve the credit information for the primary applicant.
+   */
+ suspend(function* () {
+    driverOptions.form = requestData[x];
+    request.post( driverOptions, function(err, svcResponse, body) {
+      if( err ){
+        console.log( err);
+        process.exit(1);
+      }
+      process.stdout.write("#");
+    });
+    yield setTimeout(suspend.resume(), 1000); // 1 seconds pass..
+  })();
+
 }

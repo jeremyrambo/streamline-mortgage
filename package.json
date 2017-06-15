@@ -15,11 +15,14 @@
         "pg": "~6.2.4",
         "request": "~2.81.0",
         "sprintf-js": "~1.1.1",
+        "suspend": "^0.7.0",
         "twitter": "~1.7.1"
     },
     "scripts": {
         "preinstall": "support/scripts/preinstall.sh",
-        "clean": "support/scripts/clean.sh"
+        "clean": "support/scripts/clean.sh",
+        "loadDriver": "node support/scripts/loadDriver",
+        "machine": "node support/scripts/machine"
     },
     "repository": {
         "type": "git",
