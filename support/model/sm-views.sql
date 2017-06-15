@@ -1,11 +1,13 @@
+CREATE SCHEMA sm_views;
 
-CREATE TABLE IF NOT EXISTS sm.grade_to_stats (
+
+CREATE TABLE IF NOT EXISTS sm_views.grade_to_stats (
   grade CHAR(1) NOT NULL,
   data TEXT NOT NULL,
   created_on TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS sm.machine_adjustment_log (
+CREATE TABLE IF NOT EXISTS sm_views.machine_adjustment_log (
   log_data TEXT NOT NULL,
   created_on TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
