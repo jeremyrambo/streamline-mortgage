@@ -25,6 +25,7 @@ __Request__
       lastName:'',
       birthDate:'',
       ssn:'',
+      income: '',
       address: {
         street:'',
         city:'',
