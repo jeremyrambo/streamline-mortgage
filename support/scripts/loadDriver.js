@@ -1,5 +1,5 @@
 var dataGen   = require( "../../utils/generateData" ),
-    suspend   = require( "suspend" );
+    suspend   = require( "suspend" ),
     request   = require( "request" );
 
 function simulateLoad(count) {
