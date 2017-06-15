@@ -13,7 +13,7 @@ module.exports = {
                   " WHERE method='POST' " +
                   "   AND path='/apply/mortgage'" +
                   " ORDER BY created_on DESC " +
-                  " LIMIT 10000"
+                  " LIMIT 500"
       };
 
       var compute = {
