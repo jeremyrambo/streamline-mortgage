@@ -1,6 +1,6 @@
 # streamline-mortgage
 
-- [ ] Add the ability to store mortgage requests as JSON
+- [x] Add the ability to store mortgage requests as JSON
 - [ ] Add the ability to process mortgage requests for underwriting
 - [x] Add the ability to fabricate credit score data
 - [x] Add the ability to fabricate housing value data
@@ -131,6 +131,7 @@ __Streamline Mortgage Response__
   response: {
     status:'',
     rate:'',
+    grade:'',
     explanation:''
   }
 }
