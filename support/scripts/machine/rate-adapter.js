@@ -20,7 +20,7 @@ module.exports = {
           if( multiplierShift != 0 ){
             var newRate = parseFloat(JSON.parse(body)[0].multiplier) + multiplierShift;
             publishFactorChange( grade, newRate );
-            logMachineAdjustment( "Adjusting '" + grade + "' grade by " + multiplierShift + "% to " + (Math.round(newRate *100)/100) + "%.");
+            logMachineAdjustment( "Adjusting '" + grade + "' grade by " + multiplierShift + "%");
             console.log( "setting new rate ", newRate );
           }
         });
