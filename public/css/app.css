@@ -107,7 +107,6 @@ hr.navbar-bottom-strip {
   width: 500px;
   height: 100px;
   margin: auto;
-  background: url('../images/ajax-loader.gif') no-repeat center center;
 }
 
 #loadingDiv div {
