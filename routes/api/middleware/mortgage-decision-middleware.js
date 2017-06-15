@@ -12,7 +12,6 @@ module.exports = function( request, response, next ) {
 
   response.write = function (chunk) {
     chunks.push(chunk);
-
     _write.apply(response, arguments);
   };
 
@@ -21,17 +20,14 @@ module.exports = function( request, response, next ) {
       chunks.push(chunk);
 
     try {
-
-      _end.apply( response, arguments );
       var body = Buffer.concat(chunks).toString('utf8');
-
       publisher.publish( "api-event", {
         "path" : request.path,
         "method" : request.method,
         "response" : JSON.parse(body)
       });
     }catch(e){
-      console.log( "error processing response body [chunks]: ", chunks, e );
+      console.log( "error processing response body [chunks]: ", chunks, e, body );
     }
 
 
