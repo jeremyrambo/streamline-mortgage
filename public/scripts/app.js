@@ -54,7 +54,7 @@ $('#propertyForm').submit(function(e) {
     simulateTyping('Retrieving credit score', '#loadingDiv #first');
   }, 0);
   $.post("/api/apply/mortgage", req, function(data) {
-    $.get("/api/apply/mortgage/1", function(data) {
+    $.get("/api/apply/mortgage/" + data.id, function(data) {
       $.get("/template", function(template) {
         var result = JSON.parse(data.resource);
         result.loan.total = result.loan.purchasePrice - result.loan.downPayment;
@@ -73,7 +73,8 @@ $('#propertyForm').submit(function(e) {
           }
           console.log("Payment #" + (i + 1) + " " + balance);
         }
-        result.loan.monthlyPayment = Math.round((monthlyPayment * 100)) / 100;
+        result.loan.monthlyPayment = Math.round(monthlyPayment * 100) / 100;
+        result.response.rate = Math.round(result.response.rate * 100) / 100;
         $('#result').html(Mustache.render(template, result));
       });
     });

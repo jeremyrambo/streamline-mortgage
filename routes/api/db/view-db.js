@@ -13,5 +13,16 @@ exports.q = {
           callback( err, err || result.rowCount === 0 ? undefined : result.rows);
       });
     });
+  },
+  getLogs : function(callback) {
+    dbconnector.connect( function(connection) {
+      var logs = {
+          name  : "logs_query",
+          text  : "SELECT log_data from sm_views.machine_adjustment_log ORDER BY created_on DESC LIMIT 5"
+      };
+      connection.query( logs, function(err, result) {
+          callback( err, err || result.rowCount === 0 ? undefined : result.rows);
+      });
+    });
   }
 };

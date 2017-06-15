@@ -14,3 +14,9 @@ app.get( "/profits", function( req, response ){
     return responseHandler.get(response, err, result);
   });
 });
+
+app.get( "/logs", function( req, response ){
+  viewdb.q.getLogs(function( err, result){
+    return responseHandler.get(response, err, result);
+  });
+});

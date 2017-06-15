@@ -44,7 +44,11 @@
     <hr class="navbar-bottom-strip" />
   </nav>
   <div class="container content">
-    <div style="float: right">Changes</div>
+    <div style="float: right; width: 400px">
+      <div>Machine Changes</div>
+      <ul id="logs">
+      </ul>
+    </div>
   </div>
 
   <script src="//d3js.org/d3.v3.min.js"></script>
@@ -201,7 +205,6 @@
 
     setInterval(function() {
       $.get("/api/admin/profits", function(result) {
-        console.log(result);
         var newData = [];
         for (var i = 0; i < result.length; i++) {
           newData[i] = {};
@@ -215,8 +218,16 @@
             return 1;
           return 0;
         });
-        console.log(newData);
         draw(newData);
+      });
+    }, 5000);
+
+    setInterval(function(){
+      $.get("/api/admin/logs", function(data){
+        $('#logs').html('');
+        for(var i = 0; i < data.length; i++) {
+          $('#logs').append('<li>' + data[i].log_data);
+        }
       });
     }, 5000);
   </script>
