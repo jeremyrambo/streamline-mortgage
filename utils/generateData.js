@@ -32,12 +32,14 @@ function generateApplicants(count) {
     for(var i = 0; i < count; i++) {
       applicants[i] = generateApplicant();
     }
+    return applicants;
   }
 }
 
 function generateProperty() {
   var property = {};
   property.address = generateAddress();
+  return property;
 }
 
 function generateLoan() {
@@ -45,12 +47,14 @@ function generateLoan() {
   loan.purchasePrice = faker.finance.amount() * 1000;
   loan.downPayment = faker.finance.amount() * 100;
   loan.term = terms[chance.integer({min: 0, max: 3})];
+  return loan;
 }
 
 function generateCreditScoreResponse() {
   var response = generateApplicant;
   response.birthDate = null;
   response.score = generateCreditScore();
+  return response;
 }
 
 function generateCreditScore() {
