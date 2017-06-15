@@ -56,7 +56,7 @@ function calculateTrend( grade, callback ) {
         console.log( "Profits decreasing, adjust rate based on grade...");
   			return callback( parseFloat( -0.05 ) );
       }
-      else if ( trend > 100000 ) {
+      else if ( trend > 1000000 ) {
         console.log( "Profits increasing too much, decreasing rate to keep customers happy...");
   			return callback( parseFloat( 0.05 ) );
       }

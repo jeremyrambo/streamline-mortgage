@@ -25,12 +25,12 @@ ilgather.add( gatherer.gather, [])
 function learn() {
 
   rateAdapter.adapt.grade( 'A' );
-  // rateAdapter.adapt.grade( 'B' );
-  // rateAdapter.adapt.grade( 'C' );
-  // rateAdapter.adapt.grade( 'D' );
-  // rateAdapter.adapt.grade( 'E' );
-  // rateAdapter.adapt.grade( 'F' );
-  // rateAdapter.adapt.grade( 'G' );
+  rateAdapter.adapt.grade( 'B' );
+  rateAdapter.adapt.grade( 'C' );
+  rateAdapter.adapt.grade( 'D' );
+  rateAdapter.adapt.grade( 'E' );
+  rateAdapter.adapt.grade( 'F' );
+  rateAdapter.adapt.grade( 'G' );
 }
 
 // apply machine learning
