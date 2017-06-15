@@ -54,6 +54,7 @@ app.post( "/apply/mortgage", function( req, res ){
    * Retrieve the credit information for the primary applicant.
    */
   request.post( creditOptions, function(err, svcResponse, body) {
+    console.log( body );
     let creditApplicant = JSON.parse( body );
 
     for( let key in creditApplicant ){
@@ -67,6 +68,7 @@ app.post( "/apply/mortgage", function( req, res ){
      * Retrieve the zillow information for the property.
      */
     request.post( zillowOptions, function(err, svcResponse, body) {
+      console.log( body );
       let zillowProperty = JSON.parse( body );
 
       for( let key in zillowProperty ){

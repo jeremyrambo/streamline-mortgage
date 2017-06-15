@@ -27,5 +27,5 @@ app.post( "/", function( request, response ){
 	console.log( 'request', request.body );
 	var address = request.body;
 	var resp = dataGen.generate.zillowResponse(address);
-  return responseHandler.get( response, err, resp );
+  return responseHandler.get( response, null, resp );
 });
