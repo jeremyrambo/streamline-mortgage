@@ -6,6 +6,7 @@ var express     = require( "express" ),
     request     = require( "request" ),
     publisher   = require( "../api/pub-sub/publisher" ),
     grade       = require( "./rules/grades" ),
+    rate        = require( "./rules/rating" ),
 		dataGen     = require( "../../utils/generateData");
 
 var app = module.exports = express();
@@ -31,9 +32,16 @@ app.post( "/apply/mortgage", function( request, response ){
     if ( application.response === undefined ) {
       application.response = {};
     }
-    console.log( result );
+
+    console.log( 'grade:', result );
 
     application.response.grade = result.grade;
-    return responseHandler.get( response, err, application );
+
+		rate( application, function( err, result ) {
+
+	    console.log( 'rate:', err, result );
+	    application.response.rate = result;
+	    return responseHandler.get( response, err, application );
+		});
   })
 });
