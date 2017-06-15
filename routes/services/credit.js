@@ -5,7 +5,7 @@ var express     = require( "express" ),
     utils       = require( "../../utils/utils" ),
     config      = require( "../../config" ),
     request     = require( "request" ),
-    publisher   = require( "../api/pub-sub/publisher" )
+    publisher   = require( "../api/pub-sub/publisher" ),
 		dataGen     = require( "../../utils/generateData");
 
 var app = module.exports = express();

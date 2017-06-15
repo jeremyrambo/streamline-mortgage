@@ -57,9 +57,9 @@ function generateCreditScore() {
   return chance.integer({min: 0, max: 900});
 }
 
-function generateZillowResponse() {
+function generateZillowResponse(address) {
   var response = {};
-  response.address = generateAddress();
+  response.address = address || generateAddress();
   response.estimatedValue = faker.finance.amount() * 1000;
   response.parcelNumber = chance.integer({min: 100000000, max:999999999});
   var features = {};
@@ -71,6 +71,7 @@ function generateZillowResponse() {
   features.garage = chance.integer({min: 0, max: 5});
   features.roof = roofs[chance.integer({min: 0, max: 4})];
   response.features = features;
+  return response;
 }
 
 module.exports = {
@@ -96,8 +97,8 @@ module.exports = {
     creditScore : function() {
       return generateCreditScore();
     },
-    zillowResponse : function() {
-      return generateZillowResponse();
+    zillowResponse : function(address) {
+      return generateZillowResponse(address);
     }
   }
 };

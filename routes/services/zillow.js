@@ -5,7 +5,8 @@ var express     = require( "express" ),
     utils       = require( "../../utils/utils" ),
     config      = require( "../../config" ),
     request     = require( "request" ),
-    publisher   = require( "../api/pub-sub/publisher" );
+    publisher   = require( "../api/pub-sub/publisher" )
+		dataGen     = require( "../../utils/generateData");
 
 var app = module.exports = express();
 
@@ -23,8 +24,10 @@ app.use( bodyParser.urlencoded({ extended: true }) );
  * Usage: curl -v -X POST -H "Content-Type: application/json" -d '{"street":"1 S. Main","city":"Bloomington","state":"IL","zip":"61704"}' http://localhost:8080/zillow
  */
 app.post( "/", function( request, response ){
-console.log( 'request', request.body );
+	console.log( 'request', request.body );
+	var address = request.body;
+	var resp = dataGen.generate.zillowResponse(address);
   smdb.q.connection_live( function(err, result) {
-    return responseHandler.get( response, err, result );
+    return responseHandler.get( response, err, resp );
   });
 });
