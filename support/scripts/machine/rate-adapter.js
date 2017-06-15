@@ -1,5 +1,4 @@
 var request     = require( "request" ),
-    d3          = require( "d3-format" ),
     dbconnector = require( '../../../routes/api/db/dbconnector' );
 
 module.exports = {
