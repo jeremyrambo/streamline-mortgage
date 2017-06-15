@@ -3,6 +3,7 @@ var express        								= require( "express" ),
 	  bodyParser     								= require( "body-parser" ),
     utils          								= require( "../../utils/utils" ),
     sm             								= require( "./sm/sm-api" ),
+		admin          								= require( "./sm/admin-api" ),
     api_middleware 							 	= require( "./middleware/metric-middleware" ).api,
     mortgage_decision_middleware 	= require( "./middleware/mortgage-decision-middleware" );
 
@@ -18,3 +19,4 @@ app.use( api_middleware );
 app.use( mortgage_decision_middleware );
 
 app.use( "/", sm );
+app.use( "/admin", admin);
