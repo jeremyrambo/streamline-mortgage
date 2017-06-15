@@ -50,7 +50,11 @@ function generateLoan() {
 function generateCreditScoreResponse() {
   var response = generateApplicant;
   response.birthDate = null;
-  response.score = chance.integer({min: 0, max: 900});
+  response.score = generateCreditScore();
+}
+
+function generateCreditScore() {
+  return chance.integer({min: 0, max: 900});
 }
 
 function generateZillowResponse() {
@@ -86,8 +90,11 @@ module.exports = {
     loan : function() {
       return generateLoan();
     },
-    creditScore : function() {
+    creditScoreResponse : function() {
       return generateCreditScoreResponse();
+    },
+    creditScore : function() {
+      return generateCreditScore();
     },
     zillowResponse : function() {
       return generateZillowResponse();
