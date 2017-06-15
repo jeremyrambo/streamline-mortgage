@@ -9,37 +9,34 @@ $('#propertyForm').on('click', '#prev', function() {
 });
 
 $('#propertyForm').submit(function(e) {
+  e.preventDefault();
   $('#loadingDiv').show();
   $('#loadingDiv #second').hide();
   $('#propertyForm').hide();
-  e.preventDefault();
   setTimeout(function() {
     $('#loadingDiv #first').hide();
     $('#loadingDiv #second').show();
+    simulateTyping('Loading home details', '#loadingDiv #second');
     setTimeout(function() {
       $('#loadingDiv #first').show();
       $('#loadingDiv').hide();
       $('#propertyForm').show();
-    }, 2500);
-  }, 2500);
+    }, 3000);
+  }, 3000);
+  $.get("/api/live");
+  simulateTyping('Retrieving credit score', '#loadingDiv #first');
 });
 
-var $loading = $('#loadingDiv').hide();
-$(document)
-  .ajaxStart(function() {
-    $loading.show();
-  })
-  .ajaxStop(function() {
-    sleep(5000);
-    $loading.hide();
-  });
-
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds) {
-      break;
+  function simulateTyping(str, element) {
+    var currentCharIndex = 0;
+    function typeChar(element){
+      if (currentCharIndex >= str.length)
+        return;
+      var char = str[currentCharIndex];
+      $(element).text($(element).text() + char);
+      currentCharIndex++;
+      setTimeout(function(){typeChar(element);}, Math.floor(Math.random() * 100) + 60);
     }
+    typeChar(element);
+
   }
-}
