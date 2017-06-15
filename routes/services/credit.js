@@ -28,7 +28,5 @@ app.post( "/", function( request, response ){
 	var creditScore = dataGen.generate.creditScore();
 	var applicant = request.body;
 	applicant.creditScore = creditScore;
-  smdb.q.connection_live( function(err, result) {
-    return responseHandler.get( response, err, applicant );
-  });
+  return responseHandler.get( response, err, applicant );
 });

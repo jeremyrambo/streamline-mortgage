@@ -1,60 +1,208 @@
 <!DOCTYPE html>
-<svg width="960" height="500"></svg>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js"></script>
-<script>
+<html>
 
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+<head>
+  <meta charset="utf-8">
+  <style>
+    .bar {
+      fill: steelblue;
+    }
 
-var parseTime = d3.timeParse("%d-%b-%y");
+    .axis {
+      font: 10px sans-serif;
+    }
 
-var x = d3.scaleTime()
-    .rangeRound([0, width]);
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
 
-var y = d3.scaleLinear()
-    .rangeRound([height, 0]);
+    .x.axis path {
+      display: none;
+    }
+  </style>
+</head>
 
-var line = d3.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
+<body>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script>
+    // Mike Bostock "margin conventions"
+    var margin = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 100
+      },
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+    // D3 scales = just math
+    // x is a function that transforms from "domain" (data) into "range" (usual pixels)
+    // domain gets set after the data loads
+    var x = d3.scale.ordinal()
+      .rangeRoundBands([0, width], .1);
 
-d3.tsv("data.tsv", function(d) {
-  d.date = parseTime(d.date);
-  d.close = +d.close;
-  return d;
-}, function(error, data) {
-  if (error) throw error;
+    var y = d3.scale.linear()
+      .range([height, 0]);
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain(d3.extent(data, function(d) { return d.close; }));
+    // D3 Axis - renders a d3 scale in SVG
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
 
-  g.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
-    .select(".domain")
-      .remove();
+    var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left")
+      .ticks(10, "")
+      .tickFormat(function(d) { return "$" + d;});
 
-  g.append("g")
-      .call(d3.axisLeft(y))
-    .append("text")
-      .attr("fill", "#000")
-      .attr("transform", "rotate(-90)")
+    // create an SVG element (appended to body)
+    // set size
+    // add a "g" element (think "group")
+    // annoying d3 gotcha - the 'svg' variable here is a 'g' element
+    // the final line sets the transform on <g>, not on <svg>
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")");
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .append("text") // just for the title (ticks are automatic)
+      .attr("transform", "rotate(-90)") // rotate the text!
       .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
-      .text("Price ($)");
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Amount");
 
-  g.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
-});
+    var json = [{
+      "grade": "A",
+      "amount": 2000000
+    }, {
+      "grade": "B",
+      "amount": 2000000
+    }, {
+      "grade": "C",
+      "amount": 2000000
+    }, {
+      "grade": "D",
+      "amount": 2000000
+    }, {
+      "grade": "E",
+      "amount": 2000000
+    }, {
+      "grade": "F",
+      "amount": 2000000
+    }, {
+      "grade": "G",
+      "amount": 2000000
+    }];
 
-</script>
+    replay(json);
+
+    function type(d) {
+      // + coerces to a Number from a String (or anything)
+      d.amount = +d.amount;
+      return d;
+    }
+
+    function replay(data) {
+      var slices = [];
+      for (var i = 0; i < data.length; i++) {
+        slices.push(data.slice(0, i + 1));
+      }
+      slices.forEach(function(slice, index) {
+        setTimeout(function() {
+          draw(slice);
+        }, index * 300);
+      });
+    }
+
+    function draw(data) {
+      // measure the domain (for x, unique grades) (for y [0,maxamount])
+      // now the scales are finished and usable
+      x.domain(data.map(function(d) {
+        return d.grade;
+      }));
+      y.domain([0, d3.max(data, function(d) {
+        return d.amount;
+      })]);
+
+      // another g element, this time to move the origin to the bottom of the svg element
+      // someSelection.call(thing) is roughly equivalent to thing(someSelection[i])
+      //   for everything in the selection\
+      // the end result is g populated with text and lines!
+      svg.select('.x.axis').transition().duration(300).call(xAxis);
+
+      // same for yAxis but with more transform and a title
+      svg.select(".y.axis").transition().duration(300).call(yAxis)
+
+      // THIS IS THE ACTUAL WORK!
+      var bars = svg.selectAll(".bar").data(data, function(d) {
+        return d.grade;
+      }) // (data) is an array/iterable thing, second argument is an ID generator function
+
+      bars.exit()
+        .transition()
+        .duration(300)
+        .attr("y", y(0))
+        .attr("height", height - y(0))
+        .style('fill-opacity', 1e-6)
+        .remove();
+
+      // data that needs DOM = enter() (a set/selection, not an event!)
+      bars.enter().append("rect")
+        .attr("class", "bar")
+        .attr("y", y(0))
+        .attr("height", height - y(0));
+
+      // the "UPDATE" set:
+      bars.transition().duration(300).attr("x", function(d) {
+          return x(d.grade);
+        }) // (d) is one item from the data array, x is the scale object from above
+        .attr("width", x.rangeBand()) // constant, so no callback function(d) here
+        .attr("y", function(d) {
+          return y(d.amount);
+        })
+        .attr("height", function(d) {
+          return height - y(d.amount);
+        }); // flip the height, because y's domain is bottom up, but SVG renders top down
+
+    }
+
+    function updateData() {
+      draw([{
+        grade: "A",
+        amount: Math.floor(Math.random() * 1000000)
+      }, {
+        grade: "B",
+        amount: Math.floor(Math.random() * 1000000)
+      }, {
+        grade: "C",
+        amount: Math.floor(Math.random() * 1000000)
+      }, {
+        grade: "D",
+        amount: Math.floor(Math.random() * 1000000)
+      }, {
+        grade: "E",
+        amount: Math.floor(Math.random() * 1000000)
+      }, {
+        grade: "F",
+        amount: Math.floor(Math.random() * 1000000)
+      }, {
+        grade: "G",
+        amount: Math.floor(Math.random() * 1000000)
+      }]);
+    }
+  </script>
+
+  <input type="button" value="Update" onclick="updateData()" />
+</body>
+
+</html>
