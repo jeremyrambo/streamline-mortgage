@@ -29,5 +29,26 @@ exports.q = {
 	        });
 		});
 
-  }
+
+  },
+
+  addMortgageDecision : function(mortgageDecision,  callback ) {
+
+    // TODO: It would be nice to qualify the decision against a JSON schema.
+		dbconnector.connect( function(connection) {
+      var mortgage_decision = {
+          name  : "mortgage_decision",
+          text  : " INSERT INTO sm.mortgage (resource)" +
+	             		" VALUES ($1)" +
+                  " RETURNING id",
+          values: [ mortgageDecision ]
+      };
+
+      connection.query( mortgage_decision, function(err, result) {
+          callback( err, err || result.rowCount === 0 ? undefined : result.rows[0].id );
+      });
+		});
+
+  },
+
 }

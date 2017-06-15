@@ -41,20 +41,34 @@ app.post( "/apply/mortgage", function( req, res ){
     form: application.applicants[0]
   };
   const zillowOptions = {
-    url : config.services.credit.toString(),
+    url : config.services.zillow.toString(),
     form: application.property
   };
   request.post( creditOptions, function(err, svcResponse, body) {
 
-      console.log(body)
-      for( let key in body ){
-        console.log( key );
-        if( application.applicants[0][key] === undefined ) {
-          application.applicants[0][key] = body[key];
+    let creditApplicant = JSON.parse( body );
+
+    for( let key in creditApplicant ){
+      if( application.applicants[0][key] === undefined ) {
+        application.applicants[0][key] = creditApplicant[key];
+      }
+    }
+
+
+    request.post( zillowOptions, function(err, svcResponse, body) {
+      console.log( application );
+      let zillowProperty = JSON.parse( body );
+
+      for( let key in zillowProperty ){
+        if( application.property[key] === undefined ) {
+          application.property[key] = zillowProperty[key];
         }
       }
 
-      console.log( application );
-      return responseHandler.post(request, res, err, '1')
+      smdb.q.addMortgageDecision( application, function( err, resourceId ) {
+
+        return responseHandler.post(request, res, err, resourceId);
+      });
     });
+  });
 });
