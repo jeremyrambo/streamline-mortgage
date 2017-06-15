@@ -1,4 +1,5 @@
-var request   = require( "request" ),
+var request     = require( "request" ),
+    d3          = require( "d3-format" ),
     dbconnector = require( '../../../routes/api/db/dbconnector' );
 
 module.exports = {
@@ -20,6 +21,7 @@ module.exports = {
           if( multiplierShift != 0 ){
             var newRate = parseFloat(JSON.parse(body)[0].multiplier) + multiplierShift;
             publishFactorChange( grade, newRate );
+            logMachineAdjustment( "Adjusting '" + grade + "' grade by " + multiplierShift + "% to " + (Math.round(newRate *100)/100) + "%.");
             console.log( "setting new rate ", newRate );
           }
         });
@@ -77,5 +79,22 @@ function publishFactorChange( grade, multiplier ) {
       console.log( err);
     }
     console.log( body );
+  });
+}
+
+function logMachineAdjustment( message ) {
+  console.log( message );
+  dbconnector.connect( function(connection) {
+    var log_machine_adjustment = {
+        name  : "log_machine_adjustment",
+        text  : "INSERT INTO sm_views.machine_adjustment_log ( log_data ) " +
+                "VALUES ($1)",
+        values:[ message ]
+    };
+    connection.query( log_machine_adjustment, function(err, result) {
+      if( err ) {
+        return console.log( err );
+      }
+    });
   });
 }
