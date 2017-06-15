@@ -59,6 +59,15 @@ module.exports = (function() {
             return toURL( this.url, this.port ) + this.path;
         }
       },
+
+      decisionEngine : {
+        url : config.host.url,
+        port : config.host.port,
+        path : "/decisionengine",
+        toString : function() {
+            return toURL( this.url, this.port ) + this.path;
+        }
+      },
     };
 
     // Configure the pub sub components.

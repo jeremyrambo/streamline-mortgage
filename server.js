@@ -1,16 +1,17 @@
-var http        = require( "http" ),
-    express     = require( "express" ),
-    compression = require( "compression" ),
-    morgan      = require( "morgan" ),
-    config      = require( "./config" ),
-    utils       = require( "./utils/utils" ),
-    api         = require( "./routes/api" ),
-    credit      = require( "./routes/services/credit" ),
-    zillow      = require( "./routes/services/zillow" ),
-    home        = require( "./routes/home" ),
-    graph       = require( "./routes/graph" ),
-    faye        = require( "faye" ),
-    subscribers = require( "./routes/api/pub-sub/subscribers" );
+var http            = require( "http" ),
+    express         = require( "express" ),
+    compression     = require( "compression" ),
+    morgan          = require( "morgan" ),
+    config          = require( "./config" ),
+    utils           = require( "./utils/utils" ),
+    api             = require( "./routes/api" ),
+    credit          = require( "./routes/services/credit" ),
+    zillow          = require( "./routes/services/zillow" ),
+    decisionEngine  = require( "./routes/services/decision-engine" ),
+    home            = require( "./routes/home" ),
+    graph           = require( "./routes/graph" ),
+    faye            = require( "faye" ),
+    subscribers     = require( "./routes/api/pub-sub/subscribers" );
 
 var app = module.exports = express();
 
@@ -38,6 +39,7 @@ console.log( "mounting API routes" );
 app.use( "/api", api );
 app.use( config.services.credit.path, credit );
 app.use( config.services.zillow.path, zillow );
+app.use( config.services.decisionEngine.path, decisionEngine );
 
 /**
  * Mount default route.
