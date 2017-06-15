@@ -13,7 +13,7 @@ module.exports.factor = function( application, callback ) {
                 " WHERE min <= $1 " +
                 "   AND max >= $2 " +
                 " ORDER BY created_on DESC",
-        values: [ application.property.yearBuilt, application.property.yearBuilt ]
+        values: [ application.property.features.yearBuilt, application.property.features.yearBuilt ]
     };
     connection.query( year_built, function(err, result) {
       console.log( 'year_built', err, result, year_built);
